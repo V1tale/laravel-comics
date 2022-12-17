@@ -13,27 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $title = config('comics.title');
-    $description = config('comics.description');
-    $thumb = config('comics.thumb');
-    $price = config('comics.price');
-    $series = config('comics.series');
-    $sales = config('comics.sale_date');
-    $type = config('comics.type');
-    // $artists = config('comics.artists');
-    // $writers = config('comics.writers');
 
-    return view('home', compact('title', 'description', 'thumb', 'price', 'series', 'sales', 'type'));
-})->name("home");
+Route::get('/', function () {
+    $comics = config('comics');
+    $credits = config('credits');
+    return view('home', compact('comics', 'credits'));
+})->name('home');
+
+Route::get('/comics', function () {
+    $comics = config('comics');
+
+    return view('comics', compact('comics'));
+})->name("comics");
 
 Route::get('/characters', function () {
     return view('characters');
 })->name("characters");
-
-Route::get('/comics', function () {
-    return view('comics');
-})->name("comics");
 
 Route::get('/collectibles', function () {
     return view('collectibles');
